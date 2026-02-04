@@ -1,0 +1,107 @@
+openapi: 3.0.3
+info:
+  title: ACBF PC Ubi API
+  description: |-
+    Live service API for `acbf-pc.ubi.com`.
+  version: 1.0.0
+servers:
+  - url: https://acbf-pc.ubi.com
+tags:
+  - name: base
+paths:
+  /:
+    get:
+      tags:
+        - base
+      summary: Likely the AC4 payments page, not available anymore
+      operationId: getPage
+      parameters:
+        - name: steamID
+          in: query
+          example: 76561198168309249
+          schema:
+            type: integer
+        - name: hash
+          in: query
+          example: "bb33764b4089aeec9a75d6fc3061f3c4"
+          schema:
+            type: string
+        - name: steamCountryCode
+          in: query
+          example: "PL"
+          schema:
+            type: string
+        - name: language
+          in: query
+          example: "pl-PL"
+          schema:
+            type: string
+        - name: playerref
+          in: query
+          example: 2762013
+          schema:
+            type: integer
+        - name: token
+          in: query
+          example: "pGurM%2FGrXEy2XH6DMY1kQQ%3D%3D"
+          schema:
+            type: string
+        - name: activatetab
+          in: query
+          example: "eruditocredits"
+          schema:
+            type: string
+        - name: skuversion
+          in: query
+          example: "JAP"
+          schema:
+            type: string
+        - name: steam
+          in: query
+          example: 1
+          schema:
+            type: integer
+      responses:
+        '301':
+          description: Moved Permanently
+          headers:
+            Location:
+                description: "https://payments.ubisoft.com/acbf/"
+                schema:
+                    type: string
+            Server:
+                description: "nginx"
+                schema:
+                    type: string
+            X-Cache:
+                description: "Miss from cloudfront"
+                schema:
+                    type: string
+            Via:
+                description: "1.1 7730eacc50f206ae82aa3e3eaef7e90a.cloudfront.net (CloudFront)"
+                schema:
+                    type: string
+            X-Amz-Cf-Pop:
+                description: "WAW51-P2"
+                schema:
+                    type: string
+            Alt-Svc:
+                description: "h3=\":443\"; ma=86400"
+                schema:
+                    type: string
+            X-Amz-Cf-Id:
+                description: "oWUWTe0f-L6IZLa4eOu4eKVXPYj7svfaOpS2nZfDYE5oD_2UGAlvTA=="
+                schema:
+                    type: string
+          content:
+            text/html:
+              schema:
+                type: string
+                example: |
+                  <html>
+                    <head><title>301 Moved Permanently</title></head>
+                    <body>
+                      <center><h1>301 Moved Permanently</h1></center>
+                      <hr><center>nginx</center>
+                    </body>
+                  </html>
