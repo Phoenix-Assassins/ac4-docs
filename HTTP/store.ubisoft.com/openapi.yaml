@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Store Ubisoft API
+  description: |-
+    Live service API for `store.ubisoft.com`.
+  version: 1.0.0
+
+servers:
+  - url: https://store.ubisoft.com
+
+tags:
+  - name: "Shop"
+
+paths:
+  /dw/shop/v20_4/custom_objects/GeoRedirectCountryUrls/{country_code}:
+    get:
+      tags:
+        - "Shop"
+      summary: Redirection config for countries
+      operationId: getSite
+      parameters:
+        - name: country_code
+          required: true
+          in: path
+          example: "PL"
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          example: "eb13dc0e-23bb-4024-a700-89cbf5417b49"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomObject'
+
+components:
+    schemas:
+        CustomObject:
+            type: object
+            properties:
+              _type:
+                type: string
+                example: "custom_object"
+              _v:
+                type: string
+                example: "20.4"
+              c_currency:
+                type: string
+                example: "PLN"
+              c_defaultLocale:
+                type: string
+                example: "pl_PL"
+              c_siteID:
+                type: string
+                example: "eu_uplaypc"
+              c_upcURL:
+                type: string
+                example: "/upc/eu"
+              c_URL:
+                type: string
+                example: "/eu"
+              key_property:
+                type: string
+                example: "ID"
+              object_type:
+                type: string
+                example: "GeoRedirectCountryUrls"
