@@ -1,0 +1,283 @@
+asyncapi: 2.6.0
+info:
+  title: WebSocket Notifications Public Ubi Services API
+  version: 1.0.0
+servers:
+  production:
+    url: wss://public-ws-ubiservices.ubi.com/v2/websocket
+    protocol: wss
+channels:
+  notifications:
+    description: Server-to-client real-time events
+    subscribe:
+      message:
+        oneOf:
+          - $ref: '#/components/messages/FriendRelationshipEvent'
+          - $ref: '#/components/messages/FriendInfoUpdatedEvent'
+          - $ref: '#/components/messages/FriendStatusChangedEvent'
+          - $ref: '#/components/messages/ChannelCreatedEvent'
+          - $ref: '#/components/messages/ChannelMessageCreatedEvent'
+          - $ref: '#/components/messages/ReadCursorUpdatedEvent'
+components:
+  schemas:
+    NotificationEnvelope:
+      type: object
+      required:
+        - notificationType
+        - content
+        - datePosted
+      properties:
+        notificationType:
+          type: string
+        spaceId:
+          type: string
+          format: uuid
+        sourceApplicationId:
+          type: string
+          format: uuid
+        acceptedAt:
+          type: string
+          format: date-time
+        datePosted:
+          type: string
+          format: date-time
+        sentAt:
+          type: string
+          format: date-time
+          nullable: true
+        content:
+          type: object
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        channelId:
+          type: string
+          format: uuid
+        authorId:
+          type: string
+          format: uuid
+        textMessage:
+          type: string
+        type:
+          type: string
+          example: TEXT_MESSAGE
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+    ChannelResponse:
+      type: object
+      required:
+        - id
+        - spaceId
+        - type
+        - memberships
+        - lastMessageTime
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the channel
+        parentId:
+          type: string
+          nullable: true
+          description: Parent channel ID if this is a thread or sub-channel
+        creatorId:
+          type: string
+          nullable: true
+          description: Profile ID of the user who created the channel
+        spaceId:
+          type: string
+          format: uuid
+          description: Space (workspace) this channel belongs to
+        type:
+          type: string
+          description: Type of channel
+          enum:
+            - DM
+            - GROUP
+            - SPACE
+            - THREAD
+        memberships:
+          type: array
+          description: Members participating in the channel
+          items:
+            $ref: '#/components/schemas/ChannelMembership'
+        lastMessageTime:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent message in the channel
+    ChannelMembership:
+      type: object
+      required:
+        - channelId
+        - profileId
+        - membershipType
+        - createTime
+        - updateTime
+      properties:
+        channelId:
+          type: string
+          format: uuid
+        profileId:
+          type: string
+          format: uuid
+        membershipType:
+          type: string
+          enum:
+            - ACTIVE
+            - LEFT
+            - REMOVED
+            - BANNED
+        addedBy:
+          type: string
+          format: uuid
+          nullable: true
+          description: Profile ID of the user who added this member
+        createTime:
+          type: string
+          format: date-time
+        updateTime:
+          type: string
+          format: date-time
+  messages:
+    FriendRelationshipEvent:
+      name: FRIENDS_RELATIONSHIP_TRIGGER
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - FRIENDS_RELATIONSHIP_TRIGGER
+              content:
+                type: object
+                properties:
+                  friendProfileId:
+                    type: string
+                    format: uuid
+                  state:
+                    type: string
+                    example: Friends
+                  action:
+                    type: string
+                    example: accept_invite
+                  lastModified:
+                    type: string
+                    format: date-time
+    FriendInfoUpdatedEvent:
+      name: FRIENDS_INFO_UPDATED
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - FRIENDS_INFO_UPDATED
+              content:
+                type: object
+                properties:
+                  friendProfileId:
+                    type: string
+                    format: uuid
+                  nickname:
+                    type: string
+                  isFavorite:
+                    type: boolean
+                  action:
+                    type: string
+                    example: info_updated
+                  state:
+                    type: string
+                  lastModified:
+                    type: string
+                    format: date-time
+    FriendStatusChangedEvent:
+      name: FRIENDS_STATUS_CHANGED
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - FRIENDS_STATUS_CHANGED
+              content:
+                type: object
+                properties:
+                  friendProfileId:
+                    type: string
+                    format: uuid
+                  onlineStatus:
+                    type: string
+                    example: away
+                  previousOnlineStatus:
+                    type: string
+                  lastModifiedAt:
+                    type: string
+                    format: date-time
+    ChannelCreatedEvent:
+      name: upc_channel_created
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - upc_channel_created
+              content:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    format: uuid
+                  channel:
+                    $ref: '#/components/schemas/ChannelResponse'
+    ChannelMessageCreatedEvent:
+      name: upc_channel_message_created
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - upc_channel_message_created
+              content:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    format: uuid
+                  clientTraceId:
+                    type: string
+                    format: uuid
+                  message:
+                    $ref: '#/components/schemas/ChatMessage'
+    ReadCursorUpdatedEvent:
+      name: upc_channel_read_cursor_updated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/NotificationEnvelope'
+          - type: object
+            properties:
+              notificationType:
+                enum:
+                  - upc_channel_read_cursor_updated
+              content:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    format: uuid
+                  updatedReadCursorId:
+                    type: string
+                    format: uuid

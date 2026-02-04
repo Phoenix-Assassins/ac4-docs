@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: WebSocket Notifications Public Ubi Services API
+  description: |-
+    Live service API for `public-ws-ubiservices.ubi.com`.
+    
+    Notifications related to Ubisoft accounts (e.g. friends, presence) are sent over WS protocol.
+
+    For message definitions refer to the AsyncAPI schema.
+  version: 1.0.0
+
+servers:
+  - url: https://public-ws-ubiservices.ubi.com
+
+tags:
+  - name: "WebSocket notifications"
+
+paths:
+  /v2/websocket:
+    get:
+      tags:
+        - "WebSocket notifications"
+      parameters:
+        - name: "Ubi-AppId"
+          in: query
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "Ubi-SessionId"
+          in: query
+          example: "988b6be5-921a-45a9-b2c2-b1973f3636fb"
+          schema:
+            type: string
+        - name: "SpaceIds"
+          in: query
+          example: "ec66c7e2-7b44-471c-a3ab-9d1da48153c3"
+          schema:
+            type: string
+        - name: "NotificationTypes"
+          in: query
+          example: "US_NOTIFICATION_MAINTENANCE%2CUS_CONCURRENT_CONNECT_DETECTED"
+          schema:
+            type: string
+        - name: "obj"
+          in: query
+          example: "%7B%22id%22%3A%22b79f181e-2c6d-4e1e-ad35-46488000a645%22%7D"
+          schema:
+            type: string
+        - name: "Authorization"
+          required: true
+          in: query
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJkMWM2NjZjOC01MWJiLTQyYzgtOGI3Ni0xZTIyNGY0NTExNzYiLAogICJlbnYiOiAiUHJvZCIsCiAgInNpZCI6ICJiNWQxMWVkYi0xNzg2LTQwYmQtYTM2OS0xY2U3ZjEzYzY1NTYiLAogICJ0eXAiOiAiSldFIiwKICAiZW5jIjogIkExMjhDQkMiLAogICJpdiI6ICJXaG1jNjV1dFBGS3ZzalhtVkkxcTFnIiwKICAiaW50IjogIkhTMjU2IiwKICAia2lkIjogIjY1ZWViYzJlLWNiZjAtNDg0Yy04NGE2LWI0NGYwM2VjNjNjMiIKfQ.TY3QAU6YvsHFQzDkVifD7_6tlTrx7kaLRDMyjHlNDt9MnrfnSGNey0o8niBMDFUDUiojFRwfgQTljflR1az4HTgQSyredZXdSIXAXSohNeNrpGReDHfi0fTwb5x0Oqirv5cunNVnKXC69pL4iqHZu6PeXDwip8RkhRqwi31rqToYE28Anof4Tm6S59T4o9sPeyownjVTKaGJ_3iGsgx2O6sQsSRkvtiSo_PE-bLF9ZC2kVDSpEkVCUrbtq6jo97Ady3MlxMF6qpOo_5VQi6cfBqIZNxsE26Q1pllfEXPsi-nR-mykbPw28SrkPHm44nxxr_1_PiullHm9v1OKs5cL-OXpieLAijA_eZhzTuXWoIZWu8V9BveLMlHAVJY2l0XMLuqHdQkTatWGru3kHsS3P9h5qw3JYW2hqbDDfheZXyeoVJegqoXkP9yngUFaqgxwvxq716IPXckvtvhT6DncaKEJcmeA7bxkjcPSGynBentSBIldkHbbXcejECDT31dEZM6vbTbAQrviovrYuTDuurovCFk6FJlsuzZdnGNycPU6_ry2HVk6jAJAQ1RkMkn97w6sbjkYMyEyPEdxCFvfZ4-1bvc78OfhpKzrvMiiK_P8iA5TjoO2R-wBiqz1C1BUNTL2T2H5cnhwvFoj9rip7IpBCPFpuVrOjPk93XAhcO-7sCOq36BlLd5W5DRjuaGTM_6jeStGhcgka9i6A1odINnBPtE0J4Epg9TXG16kX-Eqynk4Vum-nhP3urMe_upmodL73MJLqzIhEfceXgBN0tpAHRbLQNfuRHbOsRsGfJuKJACE42-HIS_WPz2wpvln_ACx7Bxi27-dERcIhLHGGj_l8ZQOyeU5B6vBKVgU_C6A6t__h6UCefiS6nUxvipGJZHY0Eq_Opv2vDn01uDrLTNywDc6Xo1qo6317MyrBsgqVKqazcduQmRpBpF_DBV4J3PVvYgmmnborfbw-4Yz60Eqzs3J_8jdTcGtuUyxw9cgK05N8ZiTzRbJBeZ7oLLdxaKc4LYIiOP0hz7zO9WTNsH9_Ma9s5HUnkUqJOQaS0pAWQgpa65kWjkdlPlvgQ-JYTe66_p7HYGX1xu-HWWazLgR9LCbuC_Qw2narpbc5o9WzqwGpNMRJD9OSGRWbPTfNWlUnEsJBgJBXnCd2OgH82iRZu8pY3Ren22syjUlMBEmavly1fJvgouQDeXHWOMr7KGLRVeIC053wIkxvH_1CQQTvGSsGJqr2K-pRd2n7oLcDnaXbgwHm2CS5WX3cPU5mX9C2IXKO73C3r7ylhenZwy49Qw8Bb97lifEpynMKTGBAXtoE19AXHIncgRa8J0tYPh2ZadZOZacTcPOn4mZ_tETDlJ-ptioOhNdbyF-AkPxe2g17HP-FSgGSCSOc5mxirbMGRQSYm86cyr0znj2WfBMH1v06ubK2jvvNA99tEhUiEBQRR6eSzxttznBQSJLqoQ0LWOWckIP85Xkqy3E9aL_luA9AZjo0rTG1S7MxnpgO4F7r0CYhnOijWyfzSzyHOR4NeISmF5lnskR5po-jX2GG7OWpIJ6hIBe-W7AgpqusE-0gK38mnOwPYYGhYw9iUSxJVWLF8IAa4tzFWfwLqjKRCWKREUP4-GhEk5rMj7a8A5ED8-EHhlmZstP0nNyXlhLfLNh5mXVn_Ml5Mc8_Fh6tiURoSCCJT3D58BFjXQeiiR-2R2Tbr_NLK1WUH8mMLHmCjTNf5GALfMi0UjIHpNraPeF-WzLfh43bYzm5is6BG18PluOeuHoJ85TjtTEbRowLqNMUjIYV-9WF92WuqqRDV9saAFHXF-ZEocrA-bX2mJrJQ64LJpoxhw2zntKYEE5920oszrGzfDx7v-zK1x7x6xU_wF8UZuvvqrWh9kMuTr-LzW4y8mlrElms17xSogKqXnyty3nzklvyHgwQ.zWt45IFWfwi-YJ27HydYqennTqCFSN_ATruKwu0if4o"
+          description: Uses Ubisoft's JWE token
+          schema:
+            type: string
+      responses:
+        '101':
+          description: Switching Protocols
+        '429':
+          description: Too Many Requests
