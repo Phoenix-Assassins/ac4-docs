@@ -1,0 +1,302 @@
+openapi: 3.0.3
+info:
+  title: Store Ubi API
+  description: |-
+    Live service API for `store.ubi.com`.
+  version: 1.0.0
+
+servers:
+  - url: https://store.ubi.com
+
+tags:
+  - name: "EU UPlay PC Shop"
+
+paths:
+  /s/eu_uplaypc/dw/shop/v20_4/site:
+    get:
+      tags:
+        - "EU UPlay PC Shop"
+      summary: Default configuration
+      operationId: getSite
+      parameters:
+        - name: client_id
+          in: query
+          example: "eb13dc0e-23bb-4024-a700-89cbf5417b49"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+
+  /s/eu_uplaypc/dw/shop/v20_4/product_search:
+    get:
+      tags:
+        - "EU UPlay PC Shop"
+      summary: Product search
+      operationId: getProductSearch
+      parameters:
+        - name: locale
+          in: query
+          example: "en-US"
+          schema:
+            type: string
+        - name: client_id
+          in: query
+          example: "eb13dc0e-23bb-4024-a700-89cbf5417b49"
+          schema:
+            type: string
+        - name: refine_0
+          in: query
+          example: "c_productSpaceId%3Dc8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+          schema:
+            type: string
+        - name: refine_1
+          in: query
+          example: "htype%3Dmaster"
+          schema:
+            type: string
+        - name: refine_2
+          in: query
+          example: "productEdition%3D1"
+          schema:
+            type: string
+        - name: count
+          in: query
+          example: 200
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchResult'
+components:
+    schemas:
+        Site:
+          type: object
+          properties:
+            _type:
+              type: string
+              example: "site"
+            _v:
+              type: string
+              example: "20.4"
+            allowed_currencies:
+              type: array
+              items:
+                type: string
+                example:
+                  - "EUR"
+                  - "CZK"
+                  - "DKK"
+                  - "HUF"
+                  - "PLN"
+                  - "SEK"
+            allowed_locales:
+              type: array
+              items:
+                $ref: '#/components/schemas/Locale'
+            default_currency:
+              type: string
+              example: "EUR"
+            default_locale:
+              type: string
+              example: "en-SK"
+            http_dis_base_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/dw/image/v2/ABBS_PRD"
+            https_dis_base_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/dw/image/v2/ABBS_PRD"
+            http_hostname:
+              type: string
+              example: "store.ubi.com"
+            https_hostname:
+              type: string
+              example: "store.ubi.com"
+            http_library_content_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/on/demandware.static/-/Sites-eu_uplaypc-Library/en_SK/v1770131384083"
+            https_library_content_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/on/demandware.static/-/Sites-eu_uplaypc-Library/en_SK/v1770131384083"
+            http_site_content_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/on/demandware.static/Sites-eu_uplaypc-Site/-/en_SK/v1770131384083"
+            https_site_content_url:
+              type: string
+              format: uri
+              example: "https://store.ubi.com/on/demandware.static/Sites-eu_uplaypc-Site/-/en_SK/v1770131384083"
+            id:
+              type: string
+              example: "eu_uplaypc"
+            name:
+              type: string
+              example: "European_Uplay_PC"
+            status:
+              type: string
+              example: "online"
+            timezone:
+              type: string
+              example: "Etc/UTC"
+            timezone_offset:
+              type: integer
+              example: 0
+        Locale:
+            type: object
+            required:
+                - _type
+                - id
+                - name
+                - language
+            properties:
+              _type:
+                type: string
+                example: "locale"
+              id:
+                type: string
+                example: "en-PL"
+              name:
+                type: string
+                example: "English (Poland)"
+              language:
+                type: string
+                example: "en"
+              country:
+                type: string
+                example: "PL"
+                description: ISO-2 country code (may be empty)
+              iso3_country:
+                type: string
+                example: "POL"
+              iso3_language:
+                type: string
+                example: "eng"
+              display_language:
+                type: string
+                example: "English"
+              display_country:
+                type: string
+                example: "Poland"
+              display_name:
+                type: string
+                example: "English (Poland)"
+              default:
+                type: boolean
+                example: false
+        ProductSearchResult:
+          type: object
+          properties:
+            _type:
+              type: string
+              example: "product_search_result"
+            _v:
+              type: string
+              example: "20.4"
+            count:
+              type: integer
+              example: 0
+              description: Number of products returned in this page
+            total:
+              type: integer
+              example: 0
+              description: Total number of matching products
+            start:
+              type: integer
+              example: 0
+              description: Pagination start index
+            refinements:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductSearchRefinement'
+            search_phrase_suggestions:
+              $ref: '#/components/schemas/SearchPhraseSuggestions'
+            selected_refinements:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                c_productSpaceId: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+                htype: "master"
+                productEdition: "1"
+                
+            sorting_options:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductSearchSortingOption'
+
+        ProductSearchRefinement:
+          type: object
+          required:
+            - _type
+            - attribute_id
+            - label
+          properties:
+            _type:
+              type: string
+              example: "product_search_refinement"
+            attribute_id:
+              type: string
+              example: "c_productSpaceId"
+            label:
+              type: string
+              example: "productSpaceId"
+            values:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductSearchRefinementValue'
+
+        ProductSearchRefinementValue:
+          type: object
+          required:
+            - _type
+            - value
+            - label
+          properties:
+            _type:
+              type: string
+              example: "product_search_refinement_value"
+            value:
+              type: string
+              example: "009083ff-8454-40c3-96ed-7a3641fbf2a6"
+            label:
+              type: string
+              example: "Gold"
+            hit_count:
+              type: integer
+              example: 1
+              description: Number of products matching this refinement value
+
+        ProductSearchSortingOption:
+          type: object
+          required:
+            - _type
+            - id
+            - label
+          properties:
+            _type:
+              type: string
+              example: "product_search_sorting_option"
+            id:
+              type: string
+              example: "best-sellers"
+            label:
+              type: string
+              example: "Best sellers"
+        SearchPhraseSuggestions:
+          type: object
+          properties:
+            _type:
+              type: string
+              example: "suggestion"
