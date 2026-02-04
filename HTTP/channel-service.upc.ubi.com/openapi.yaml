@@ -1,0 +1,375 @@
+openapi: 3.0.3
+info:
+  title: Channel Service UPC Ubi API
+  description: |-
+    Live service API for `channel-service.upc.ubi.com`.
+    
+    This service is responsible for chat message delivery (available from in-game Ubi overlay).
+  version: 1.0.0
+
+servers:
+  - url: https://channel-service.upc.ubi.com
+
+tags:
+  - name: "Spaces"
+  - name: "Profiles"
+
+paths:
+  /v1/profiles/me/channels:
+    get:
+      tags:
+        - "Profiles"
+      summary: Channels for space
+      operationId: getSite
+      parameters:
+        - name: spaceId
+          in: query
+          example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          schema:
+            type: string
+        - name: "Ubi-AppId"
+          in: header
+          example: "dcf8c516-e95e-4251-b9a7-ee4f9f442c22"
+          schema:
+            type: string
+        - name: "Authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJkMWM2NjZjOC01MWJiLTQyYzgtOGI3Ni0xZTIyNGY0NTExNzYiLAogICJlbnYiOiAiUHJvZCIsCiAgInNpZCI6ICJiNWQxMWVkYi0xNzg2LTQwYmQtYTM2OS0xY2U3ZjEzYzY1NTYiLAogICJ0eXAiOiAiSldFIiwKICAiZW5jIjogIkExMjhDQkMiLAogICJpdiI6ICJXaG1jNjV1dFBGS3ZzalhtVkkxcTFnIiwKICAiaW50IjogIkhTMjU2IiwKICAia2lkIjogIjY1ZWViYzJlLWNiZjAtNDg0Yy04NGE2LWI0NGYwM2VjNjNjMiIKfQ.TY3QAU6YvsHFQzDkVifD7_6tlTrx7kaLRDMyjHlNDt9MnrfnSGNey0o8niBMDFUDUiojFRwfgQTljflR1az4HTgQSyredZXdSIXAXSohNeNrpGReDHfi0fTwb5x0Oqirv5cunNVnKXC69pL4iqHZu6PeXDwip8RkhRqwi31rqToYE28Anof4Tm6S59T4o9sPeyownjVTKaGJ_3iGsgx2O6sQsSRkvtiSo_PE-bLF9ZC2kVDSpEkVCUrbtq6jo97Ady3MlxMF6qpOo_5VQi6cfBqIZNxsE26Q1pllfEXPsi-nR-mykbPw28SrkPHm44nxxr_1_PiullHm9v1OKs5cL-OXpieLAijA_eZhzTuXWoIZWu8V9BveLMlHAVJY2l0XMLuqHdQkTatWGru3kHsS3P9h5qw3JYW2hqbDDfheZXyeoVJegqoXkP9yngUFaqgxwvxq716IPXckvtvhT6DncaKEJcmeA7bxkjcPSGynBentSBIldkHbbXcejECDT31dEZM6vbTbAQrviovrYuTDuurovCFk6FJlsuzZdnGNycPU6_ry2HVk6jAJAQ1RkMkn97w6sbjkYMyEyPEdxCFvfZ4-1bvc78OfhpKzrvMiiK_P8iA5TjoO2R-wBiqz1C1BUNTL2T2H5cnhwvFoj9rip7IpBCPFpuVrOjPk93XAhcO-7sCOq36BlLd5W5DRjuaGTM_6jeStGhcgka9i6A1odINnBPtE0J4Epg9TXG16kX-Eqynk4Vum-nhP3urMe_upmodL73MJLqzIhEfceXgBN0tpAHRbLQNfuRHbOsRsGfJuKJACE42-HIS_WPz2wpvln_ACx7Bxi27-dERcIhLHGGj_l8ZQOyeU5B6vBKVgU_C6A6t__h6UCefiS6nUxvipGJZHY0Eq_Opv2vDn01uDrLTNywDc6Xo1qo6317MyrBsgqVKqazcduQmRpBpF_DBV4J3PVvYgmmnborfbw-4Yz60Eqzs3J_8jdTcGtuUyxw9cgK05N8ZiTzRbJBeZ7oLLdxaKc4LYIiOP0hz7zO9WTNsH9_Ma9s5HUnkUqJOQaS0pAWQgpa65kWjkdlPlvgQ-JYTe66_p7HYGX1xu-HWWazLgR9LCbuC_Qw2narpbc5o9WzqwGpNMRJD9OSGRWbPTfNWlUnEsJBgJBXnCd2OgH82iRZu8pY3Ren22syjUlMBEmavly1fJvgouQDeXHWOMr7KGLRVeIC053wIkxvH_1CQQTvGSsGJqr2K-pRd2n7oLcDnaXbgwHm2CS5WX3cPU5mX9C2IXKO73C3r7ylhenZwy49Qw8Bb97lifEpynMKTGBAXtoE19AXHIncgRa8J0tYPh2ZadZOZacTcPOn4mZ_tETDlJ-ptioOhNdbyF-AkPxe2g17HP-FSgGSCSOc5mxirbMGRQSYm86cyr0znj2WfBMH1v06ubK2jvvNA99tEhUiEBQRR6eSzxttznBQSJLqoQ0LWOWckIP85Xkqy3E9aL_luA9AZjo0rTG1S7MxnpgO4F7r0CYhnOijWyfzSzyHOR4NeISmF5lnskR5po-jX2GG7OWpIJ6hIBe-W7AgpqusE-0gK38mnOwPYYGhYw9iUSxJVWLF8IAa4tzFWfwLqjKRCWKREUP4-GhEk5rMj7a8A5ED8-EHhlmZstP0nNyXlhLfLNh5mXVn_Ml5Mc8_Fh6tiURoSCCJT3D58BFjXQeiiR-2R2Tbr_NLK1WUH8mMLHmCjTNf5GALfMi0UjIHpNraPeF-WzLfh43bYzm5is6BG18PluOeuHoJ85TjtTEbRowLqNMUjIYV-9WF92WuqqRDV9saAFHXF-ZEocrA-bX2mJrJQ64LJpoxhw2zntKYEE5920oszrGzfDx7v-zK1x7x6xU_wF8UZuvvqrWh9kMuTr-LzW4y8mlrElms17xSogKqXnyty3nzklvyHgwQ.zWt45IFWfwi-YJ27HydYqennTqCFSN_ATruKwu0if4o"
+          description: Uses Ubisoft's JWE token
+          schema:
+            type: string
+        - name: "Ubi-SessionId"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ae7f23c6556"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelList'
+
+  /v1/spaces/{space_id}/channels:
+    post:
+      tags:
+        - "Spaces"
+      summary: Creates a channel for space
+      parameters:
+        - name: space_id
+          in: path
+          required: true
+          example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelResponse'
+
+  /v1/spaces/{space_id}/channels/{channel_id}/messages:
+    get:
+      tags:
+        - "Spaces"
+      summary: "Messages in channel"
+      parameters:
+        - name: space_id
+          in: path
+          required: true
+          example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          schema:
+            type: string
+        - name: channel_id
+          in: path
+          required: true
+          example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+          schema:
+            type: string
+        - name: limit
+          in: query
+          example: 50
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+    post:
+      tags:
+        - "Spaces"
+      summary: Send message
+      parameters:
+        - name: space_id
+          in: path
+          required: true
+          example: "ca5e39a0-0145-11f1-8453-87002219dbbf"
+          schema:
+            type: string
+        - name: channel_id
+          in: path
+          required: true
+          example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                channelId:
+                  type: string
+                  example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+                textMessage:
+                  type: string
+                  example: "hi im testing shit"
+                type:
+                  type: string
+                  example: "TEXT_MESSAGE"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+  /v1/profiles/me/channels/{channel_id}/messages/ack:
+    get:
+      tags:
+        - "Profiles"
+      summary: "Acknowledgment of message reception"
+      parameters:
+        - name: channel_id
+          in: path
+          required: true
+          example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+          schema:
+            type: string
+        - name: space_id
+          in: query
+          required: true
+          example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    example: "c3df2b70-0145-11f1-a00e-410fd950325a"
+                  messageId:
+                    type: string
+                    example: ""
+  /v1/profiles/me/channels/{channel_id}/messages/{message_id}/ack:
+    post:
+      tags:
+        - "Profiles"
+      summary: "Acknowledgment of message reception"
+      parameters:
+        - name: channel_id
+          in: path
+          required: true
+          example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+          schema:
+            type: string
+        - name: message_id
+          in: path
+          required: true
+          example: "ca5e39a0-0145-11f1-8453-87002219dbbf"
+          schema:
+            type: string
+        - name: space_id
+          in: query
+          required: true
+          example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  channelId:
+                    type: string
+                    example: "c3df2b70-0145-11f1-a00e-410fd950325a"
+                  messageId:
+                    type: string
+                    example: "ca5e39a0-0145-11f1-8453-87002219dbbf"
+
+components:
+    schemas:
+        ChannelList:
+            type: object
+            properties:
+              channels:
+                type: array
+                items:
+                  type: object
+                example: []
+              nextToken:
+                type: string
+                example: ""
+        ChannelRequest:
+          type: object
+          required:
+            - channel
+            - members
+          properties:
+            channel:
+              $ref: '#/components/schemas/Channel'
+            members:
+              type: array
+              description: List of user IDs participating in the channel
+              items:
+                type: string
+                format: uuid
+              example:
+                - "3880b63b-2815-4452-adc9-0fe152b785a5"
+        Channel:
+          type: object
+          required:
+            - type
+            - metadata
+          properties:
+            parentId:
+              type: string
+              example: ""
+            type:
+              type: string
+              example: "DM"
+            metadata:
+              $ref: '#/components/schemas/ChannelMetadata'
+        ChannelMetadata:
+          type: object
+          properties:
+            name:
+              type: string
+              example: ""
+            topic:
+              type: string
+              example: ""
+        ChannelResponse:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: "c3df2b70-0145-11f1-a00e-410fd950325a"
+            parentId:
+              type: string
+              example: ""
+            creatorId:
+              type: string
+              format: uuid
+              example: ""
+            spaceId:
+              type: string
+              format: uuid
+              example: "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+            type:
+              type: string
+              example: "DM"
+            memberships:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChannelMembership'
+            lastMessageTime:
+              type: string
+              format: date-time
+              example: "2026-02-03T21:17:37.576Z"
+        ChannelMembership:
+          type: object
+          properties:
+            channelId:
+              type: string
+              format: uuid
+            profileId:
+              type: string
+              format: uuid
+            membershipType:
+              type: string
+              example: "ACTIVE"
+            addedBy:
+              type: string
+              format: uuid
+              example: ""
+            createTime:
+              type: string
+              format: date-time
+            updateTime:
+              type: string
+              format: date-time
+        MessageList:
+          type: object
+          properties:
+            messages:
+              type: array
+              example: []
+              items:
+                $ref: "#/components/schemas/Message"
+            nextToken:
+              type: string
+              example: ""
+        Message:
+          type: object
+          properties:
+            authorId:
+              type: string
+              example: "19eb5474-f0f1-43ee-9a68-590c96678c2a"
+            channelId:
+              type: string
+              example: "c3df8b70-0145-11f1-a00e-410fd910325a"
+            createTime:
+              type: string
+              format: date-time
+              example: "2026-02-03T21:17:48.474Z"
+            id:
+              type: string
+              example: "ca5e39a0-0145-11f1-8453-87002219dbbf"
+            mentions:
+              type: array
+              items:
+                type: object
+              example: []
+            parentId:
+              type: string
+              example: ""
+            textMessage:
+              type: string
+              example: "hi im testing shit"
+            type:
+              type: string
+              example: "TEXT_MESSAGE"
+            updateTime:
+              type: string
+              format: date-time
+              example: "2026-02-03T21:17:48.474Z"
