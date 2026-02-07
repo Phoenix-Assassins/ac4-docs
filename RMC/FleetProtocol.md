@@ -110,7 +110,7 @@ This method does not return anything.
 
 | Type | Name |
 |------|------|
-| qlist<uint32> | unkUints |
+| qlist\<uint32> | unkUints |
 
 # (6) DeletePlayer
 
@@ -261,7 +261,7 @@ Unused method, payload unknown.
 
 | Type | Name |
 |------|------|
-| qlist<uint32> | unkUints |
+| qlist\<uint32> | unkUints |
 
 # (16) AddMission
 
@@ -450,7 +450,7 @@ This method does not return anything.
 |------|------|
 | string | unkStr |
 | qlist<[FleetBoat](#fleetboat-structure)> | boats |
-| qlist<uint32> | unkUints |
+| qlist\<uint32> | unkUints |
 | qlist<[FleetResource](#fleetresource-structure)> | resources |
 | qlist<[FleetReward](#fleetreward-structure)> | rewards |
 | qlist<[FleetMission](#fleetmission-structure)> | missions1 |
@@ -461,7 +461,7 @@ This method does not return anything.
 
 | Type | Name |
 |------|------|
-| qlist<uint32> | unkUints |
+| qlist\<uint32> | unkUints |
 
 # (29) UpdateUserUPlayId
 
@@ -519,7 +519,7 @@ This method does not return anything.
 | uint32 | unkUint1 |
 | uint32 | unkUint2 |
 | uint32 | unkUint3 |
-| qlist<uint32> | unkUints |
+| qlist\<uint32> | unkUints |
 | uint32 | unkUint4 |
 | uint32 | unkUint5 |
 | uint32 | unkUint6 |
