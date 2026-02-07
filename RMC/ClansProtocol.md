@@ -232,7 +232,7 @@ This method does not take any parameters.
 | uint32 | unkUint1 |
 | string | unkStr1 |
 | string | unkStr2 |
-| [UnkType](#UnkType-structure)> | list |
+| [UnkType](#UnkType-structure) | unkObj |
 | uint32 | unkUint2 |
 | uint32 | unkUint3 |
 | uint32 | unkUint4 |
