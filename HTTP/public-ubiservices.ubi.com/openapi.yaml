@@ -1,0 +1,884 @@
+openapi: 3.0.3
+info:
+  title: Public Ubi Services API
+  description: |-
+    Live service API for `public-ubiservices.ubi.com`.
+    
+  version: 1.0.0
+
+servers:
+  - url: https://public-ubiservices.ubi.com
+
+tags:
+  - name: "Profiles"
+  - name: "Spaces"
+paths:
+  /v1/profiles/me/populations:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+        - name: "spaceIds"
+          in: query
+          example: "bca538a4-a6c8-429c-8e21-ea8bb9c40817"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Populations'
+  /v1/profiles/{profile_id}/avatars:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imageVariations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          example: "https://ubiservices.cdn.ubi.com/77560d22-668e-40ad-a445-69ae77826b40/static/default_avatar.png?rs=146"
+                        width:
+                          type: integer
+                          example: 146
+                  profileId:
+                    type: string
+                    example: "29eb5434-f1f1-43ff-9a69-a91c9667892e"
+                  spaceId:
+                    type: string
+                    example: "77560d22-668e-40ad-a445-69ae77826b40"
+                  type:
+                    type: string
+                    example: "uploaded"
+  /v1/profiles/{profile_id}/global/ubiconnect/economy/api/metaprogression:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  level:
+                    type: integer
+                    example: 7
+                  xp:
+                    type: integer
+                    example: 3000
+                  profileId:
+                    type: string
+                    example: "29eb5434-f1f1-43ff-9a69-a91c9667892e"
+  /v2/profiles/me/iplocation:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpLocation'
+  /v3/profiles/sessions:
+    post:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rememberMe:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/SessionInfo'
+  /v1/spaces/global/ubiconnect/games/api:
+    get:
+      tags:
+        - "Spaces"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "988b6be5-921a-45a9-b2c4-b1973f3636fa"
+          schema:
+            type: string
+        - name: "spaceIds"
+          in: header
+          example: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Games'
+  /v4/spaces/global/ubiconnect/configcache/api/preauth:
+    get:
+      tags:
+        - "Spaces"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "bundleEnv"
+          in: query
+          example: "prod"
+          schema:
+            type: string
+        - name: "applications"
+          in: query
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "applicationId"
+          in: query
+          example: "66b22534-0c4c-4bb0-b6f6-9674cfc307ce"
+          schema:
+            type: string
+        - name: "gameSpaceId"
+          in: query
+          example: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+          schema:
+            type: string
+      responses:
+        '304':
+          description: Not Modified
+  /v4/spaces/global/ubiconnect/configcache/api/postauth:
+    get:
+      tags:
+        - "Spaces"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "bundleEnv"
+          in: query
+          example: "prod"
+          schema:
+            type: string
+        - name: "platformVariant"
+          in: query
+          example: ""
+          schema:
+            type: string
+        - name: "applications"
+          in: query
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "applicationId"
+          in: query
+          example: "66b22534-0c4c-4bb0-b6f6-9674cfc307ce"
+          schema:
+            type: string
+        - name: "gameSpaceId"
+          in: query
+          example: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostAuth'
+components:
+  schemas:
+    SessionInfo:
+      type: object
+      properties:
+        clientIp:
+          type: string
+          example: "127.0.0.1"
+        clientIpCountry:
+          type: string
+          example: "PL"
+        environment:
+          type: string
+          example: Prod
+        expiration:
+          type: string
+          example: "2026-02-04T00:04:49.0065029Z"
+          format: date-time
+        maskedPhone:
+          type: string
+          example: null
+        nameOnPlatform:
+          type: string
+          example: "mimak"
+        platformType:
+          type: string
+          example: "uplay"
+        profileId:
+          type: string
+          example: "1ceb5434-f1f2-43ef-9a68-590c916748ee"
+        rememberMeTicket:
+          type: string
+          example: null
+        serverTime:
+          type: string
+          example: "2026-02-03T21:04:49.0099386Z"
+          format: date-time
+        sessionId:
+          type: string
+          example: "988b6be5-d21a-45b9-b2c2-b1973f3646fa"
+        ticket:
+          type: string
+          example: "ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJkMWM2NjZjOC01MWJiLTQyYzgtOGI3Ni0xZTIyNGY0NTExNzYiLA..."
+        twoFactorAuthenticationTicket:
+          type: string
+          example: null
+        userId:
+          type: string
+          example: "12ef5434-f1f1-43fe-9a68-590c465f8327"
+    IpLocation:
+      type: object
+      properties:
+        city:
+          type: string
+          example: "Warszawa"
+        country:
+          type: string
+          example: "PL"
+        countryName:
+          type: string
+          example: Poland
+        ip:
+          type: string
+          example: "69.69.69.69"
+        isp:
+          type: string
+          example: "your ISP"
+        latitude:
+          type: string
+          example: "0.000000"
+        longitude:
+          type: string
+          example: "0.000000"
+        organization:
+          type: string
+          example: "your ISP's org"
+        regionCode:
+          type: string
+          example: "32"
+        regionName:
+          type: string
+          example: "Mazovia"
+        timeZone:
+          type: string
+          example: "Europe/Warsaw"
+        zipCode:
+          type: string
+          example: "02-916"
+    Populations:
+      type: object
+      properties:
+        populations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Population'
+    Population:
+      type: object
+      properties:
+        assignmentTime:
+          type: string
+          format: date-time
+          example: "2026-02-03T21:04:49Z"
+        name:
+          type: string
+          example: "Country_Included_In_Rollout"
+        obj:
+          type: object
+          example: {}
+        spaceId:
+          type: string
+          example: "bca538a4-a6c8-429c-8e21-ea8bb9c40817"
+        subject:
+          type: string
+          example: "upn_new_store_auth_rollout"
+    PostAuth:
+      type: object
+      properties:
+        d1c666c8-51bb-42c8-8b76-1e224f451176:
+          type: object
+          description: "App ID"
+          properties:
+            accessMenu:
+              type: array
+              items:
+                type: string
+              example: []
+            cacheParameters:
+              type: object
+              properties:
+                useConfigService:
+                  type: boolean
+                  example: true
+            features:
+              type: object
+              properties:
+                achievementNotification:
+                  type: boolean
+                  example: true
+                disableMicroAppPreload:
+                  type: boolean
+                  example: false
+                metrics:
+                  type: boolean
+                  example: true
+                rainbow6ThemingEnabled:
+                  type: boolean
+                  example: true
+            feedback:
+              type: object
+              properties:
+                discordServerButtonUrl:
+                  type: string
+                  example: ""
+                feedbackButtonUrl:
+                  type: string
+                  example: ""
+                reportBugButtonUrl:
+                  type: string
+                  example: ""
+                ubisoftHelpButtonUrl:
+                  type: string
+                  example: ""
+            lastUpdate:
+              type: object
+              properties:
+                isMandatory:
+                  type: boolean
+                  example: false
+                lastUpdateDate:
+                  type: string
+                  format: date-time
+                  example: "2022-09-16T08:56:00.000Z"
+            manifests:
+              type: array
+              items:
+                $ref: '#/components/schemas/Manifest'
+            metricCategoryFilters:
+              type: object
+              properties:
+                p0:
+                  type: boolean
+                  example: false
+                p1:
+                  type: boolean
+                  example: false
+                p2:
+                  type: boolean
+                  example: false
+                p3:
+                  type: boolean
+                  example: false
+                p4:
+                  type: boolean
+                  example: false
+                performance:
+                  type: boolean
+                  example: false
+            microApplications:
+              type: array
+              items:
+                $ref: '#/components/schemas/MicroApplication'
+            notifications:
+              type: object
+              properties:
+                default:
+                  type: string
+                  example: "topRight"
+                overrides:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      notificationPosition:
+                        type: string
+                        example: "topLeft"
+                      spaceId:
+                        type: string
+                        example: "5172a557-50b5-4665-b7db-e3f2e8c5041d"
+            remoteLogs:
+              type: object
+              properties:
+                api:
+                  type: string
+                  example: "Error"
+                apiValidation:
+                  type: string
+                  example: "Error"
+                authentication:
+                  type: string
+                  example: "Error"
+                configuration:
+                  type: string
+                  example: "Error"
+                focus:
+                  type: string
+                  example: "Error"
+                gameLaunch:
+                  type: string
+                  example: "Error"
+                hostCommunication:
+                  type: string
+                  example: "Error"
+                initialization:
+                  type: string
+                  example: "Error"
+                input:
+                  type: string
+                  example: "Error"
+                kinderGarden:
+                  type: string
+                  example: "Error"
+                maxTextLength:
+                  type: integer
+                  example: 32768
+                microAppLifecycle:
+                  type: string
+                  example: "Error"
+                navigation:
+                  type: string
+                  example: "Error"
+                navigationHistory:
+                  type: string
+                  example: "Error"
+                performance:
+                  type: string
+                  example: "Error"
+                playerNotification:
+                  type: string
+                  example: "Error"
+                serviceWorker:
+                  type: string
+                  example: "Error"
+                shell:
+                  type: string
+                  example: "Error"
+                shellPlugin:
+                  type: string
+                  example: "Error"
+                streaming:
+                  type: string
+                  example: "Error"
+                uncategorized:
+                  type: string
+                  example: "Error"
+                unexpected:
+                  type: string
+                  example: "Error"
+                url:
+                  type: string
+                  example: "https://public-ubiservices.ubi.com/v1/profiles/me/remotelog"
+                webSocket:
+                  type: string
+                  example: "Error"
+            serviceUrls:
+              type: object
+              properties:
+                metricsCollector:
+                  type: string
+                  example: "https://public-ubiservices.ubi.com/v1/spaces/all/global/sre/opentelemetry/api/metrics"
+                remoteLogs:
+                  type: string
+                  example: "https://public-ubiservices.ubi.com/v1/profiles/me/remotelog"
+                websocketNotifications:
+                  type: string
+                  example: "wss://public-ws-ubiservices.ubi.com/v2/websocket"
+    Manifest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "upn-login-form-manifest"
+        version:
+          type: string
+          example: "0.107.0"
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManifestEntry'
+    ManifestEntry:
+      type: object
+      properties: 
+        cachingStrategy:
+          type: string
+          example: "networkOnly"
+        comment:
+          type: string
+          example: "Should never cache responses of roaming profiles or games played requests"
+        preWarm:
+          type: boolean
+          example: true
+        revision:
+          type: string
+          example: "0.107.0"
+        isRegexp:
+          type: boolean
+          example: true
+        scope:
+          type: string
+          example: "everyone"
+        ttl:
+          type: string
+          example: "24h"
+        url:
+          type: string
+          example: "^https://.*roamingProfile|gamesplayed/i"
+    MicroApplication:
+      type: object
+      properties:
+        appName:
+          type: string
+          example: "rewards"
+        availableNetworkCondition:
+          type: string
+          example: "onlineOnly"
+        bundleUrl:
+          type: string
+          example: "https://connect.cdn.ubisoft.com/rewards/1.245.0/rewards.umd.js"
+        coverImage:
+          type: string
+          example: ""
+        default:
+          type: boolean
+          example: false
+        iconUrl:
+          type: string
+          example: "https://ubiservices.cdn.ubi.com/982ac466-c0c8-49a9-9464-8a2a4120b19f/spaceCardAsset/Rewards.png"
+        label:
+          type: string
+          example: "Rewards"
+        manifestUrl:
+          type: string
+          example: ""
+        parents:
+          type: array
+          items:
+            type: object
+            properties:
+              isHidden:
+                type: boolean
+                example: false
+              order:
+                type: integer
+                example: 0
+              parentAppName:
+                type: string
+                example: "app-game-page"
+        populations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Population'
+          example: []
+        preload:
+          type: boolean
+          example: false
+        remoteLogsConfiguration:
+          type: object
+          properties:
+            all-rewards:
+              type: string
+              example: "Warning"
+            config:
+              type: string
+              example: "Error"
+            core-rewards:
+              type: string
+              example: "Warning"
+            GQL-error:
+              type: string
+              example: "Error"
+            GQL-network:
+              type: string
+              example: "None"
+            maxTextLength:
+              type: integer
+              example: 32768
+            navigation:
+              type: string
+              example: "Warning"
+            ubisoft-plus-rewards:
+              type: string
+              example: "Warning"
+            uncategorized:
+              type: string
+              example: "Warning"
+            url:
+              type: string
+              example: "https://public-ubiservices.ubi.com/v1/profiles/me/remotelog"
+        spaceId:
+          type: string
+          example: "982ac466-c0c8-49a9-9464-8a2a4120b19f"
+    Games:
+      type: object
+      properties:
+        games:
+          type: array
+          items:
+            $ref: '#/components/schemas/Game'
+    Game:
+      type: object
+      properties:
+        ageRating:
+          $ref: '#/components/schemas/AgeRating'
+        displayDescription:
+          type: string
+          example: "Assassin's Creed® IV Black Flag begins in 1715, when pirates established a lawless republic in the Caribbean and ruled the land and seas. These outlaws paralyzed navies, halted international trade, and plundered vast fortunes. They threatened the power structures that ruled Europe, inspired the imaginations of millions, and left a legacy that still endures."
+        displayName:
+          type: string
+          example: "Assassin's Creed® IV Black Flag"
+        imageUrls:
+          type: object
+          properties:
+            background:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/backgroundAssetId.jpg"
+            gameAvatar:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/Club_Asset/Avatar.jpg"
+            gameLogoColor:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/LogoColor.png"
+            gameLogoFlat:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/LogoColor.png"
+            highBoxArt:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/boxArt_mobile.jpg"
+            highThumbnail:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/gamePreview.jpg"
+            lowBoxArt:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/boxArt_mobile.jpg"
+            lowThumbnail:
+              type: string
+              example: "https://ubiservices.cdn.ubi.com/c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52/spaceCardAsset/gameThumbnail_mobile.jpg"
+        installmentDefault:
+          type: boolean
+          example: true
+        installmentSpaceId:
+          type: string
+          example: "43f6bfa2-ffed-4869-b2ad-28283fe8b485"
+        linkUrls:
+          type: object
+          properties:
+            facebook:
+              type: string
+              example: "https://www.facebook.com/assassinscreed"
+            instagram:
+              type: string
+              example: null
+              nullable: true
+            reddit:
+              type: string
+              example: null
+              nullable: true
+            twitter:
+              type: string
+              example: "https://twitter.com/assassinscreed"
+            website:
+              type: string
+              example: "https://assassinscreed.ubisoft.com"
+        platforms:
+          type: array
+          items:
+            type: object
+            properties:
+              applicationId:
+                type: string
+                example: "b8aa2f37-9356-4bc7-87fe-953ce76fd506"
+              displayName:
+                type: string
+                example: "PC"
+              type:
+                type: string
+                example: "PC"
+        releaseAt:
+          type: string
+          format: date-time
+          example: "2013-11-19T00:00:00Z"
+        releaseStatusDisplayName:
+          type: string
+          example: null
+          nullable: true
+        siblingGames:
+          type: array
+          items:
+            type: object
+            properties:
+              platforms:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    applicationId:
+                      type: string
+                      example: "e73d0cc7-e623-43df-b22b-5a07b177382a"
+                    displayName:
+                      type: string
+                      example: "Xbox One"
+                    type:
+                      type: string
+                      example: "DURANGO"
+              spaceId:
+                type: string
+                example: "65798873-5495-4fe6-be7e-5370e52311bd"
+        spaceId:
+          type: string
+          example: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+    AgeRating:
+      type: object
+      properties:
+        descriptors:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+                example: "Blood"
+              imageUrl:
+                type: string
+                example: null
+                nullable: true
+        imageUrl:
+          type: string
+          example: null
+          nullable: true
+        system:
+          type: string
+          example: "ESRB"
