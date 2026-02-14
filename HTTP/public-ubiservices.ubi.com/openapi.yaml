@@ -45,6 +45,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Populations'
+  /v1/profiles/me/global/ubiconnect/entitlement/api/entitlements:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-profileid"
+          in: header
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-localecode"
+          in: header
+          required: true
+          example: "en-US"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '304':
+          description: Not Modified
   /v1/profiles/{profile_id}/avatars:
     get:
       tags:
@@ -99,6 +139,44 @@ paths:
                   type:
                     type: string
                     example: "uploaded"
+  /v1/profiles/{profile_id}/connections:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connections:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Connection'
   /v1/profiles/{profile_id}/global/ubiconnect/economy/api/metaprogression:
     get:
       tags:
@@ -142,6 +220,60 @@ paths:
                   profileId:
                     type: string
                     example: "29eb5434-f1f1-43ff-9a69-a91c9667892e"
+  /v1/profiles/{profile_id}/global/ubiconnect/economy/api/ubiplussubscriptions:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-profileid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-localecode"
+          in: header
+          example: "en-US"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ubiPlusSubscriptions:
+                    type: array
+                    example: []
+                    items:
+                      type: object
   /v2/profiles/me/iplocation:
     get:
       tags:
@@ -185,6 +317,110 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/SessionInfo'
+  /v1/spaces/{space_id}/parameters:
+    get:
+      tags:
+        - "Spaces"
+      parameters:
+        - name: "space_id"
+          in: path
+          required: true
+          example: "bca538a4-a6c8-429c-8e21-ea8bb9c40817"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImF..."
+          schema:
+            type: string
+        - name: "ubi-populations"
+          in: header
+          example: "EndUserLogging.None,upn_new_store_auth_rollout.Country_Included_In_Rollout"
+          schema:
+            type: string
+        - name: "parameterGroups"
+          in: query
+          example: "auth-config"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parameters:
+                    type: object
+                    properties:
+                      auth-config:
+                        type: object
+                        properties:
+                          fields:
+                            type: object
+                            properties:
+                              isNewLoginActive:
+                                type: boolean
+                                example: true
+                              storeLoginEndpoint:
+                                type: string
+                                example: "https://store-sessions.ecom.ubi.com/sfcc-login"
+                          relatedPopulation:
+                            type: object
+                            example: null
+                            nullable: true
+  /v1/spaces/all/global/sre/opentelemetry/api/metrics:
+    post:
+      tags:
+        - "Spaces"
+      parameters:
+        - name: "Ubi-AppId"
+          in: header
+          example: "1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "X-Platform-AppId"
+          in: header
+          example: "1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "Authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImF..."
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resourceMetrics:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ResourceMetric'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  partialSuccess:
+                    type: object
+                    example: {}
   /v1/spaces/global/ubiconnect/games/api:
     get:
       tags:
@@ -882,3 +1118,180 @@ components:
         system:
           type: string
           example: "ESRB"
+    Connection:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+        connectionId:
+          type: string
+          example: "3772ecc8-6353-4c73-b922-1c320dd39b20"
+        contactProtocol:
+          type: string
+          example: "HTTP Post"
+        contactUrl:
+          type: string
+          example: "https://public-im-ubiservices.ubi.com/v2/connections/0ae5aabce985353ec/8182/3772ecc8-6353-4c73-b922-1c320dd39b20/notifications"
+        createdDate:
+          type: string
+          format: date-time
+          example: "2026-02-03T21:04:50.239Z"
+        lastModifiedDate:
+          type: string
+          format: date-time
+          example: "2026-02-03T21:04:50.239Z"
+        messageTypes:
+          type: array
+          example:
+            - "upc_remote_actions"
+            - "upc_free_games_updated"
+            - "upc_shareplay_guest_invite"
+            - "FRIENDS_STATUS_CHANGED"
+            - "upc_shareplay_guest_invite_rsp"
+            - "BLOCKLIST_ADD"
+            - "upc_shareplay_guest_interrupts_session"
+            - "FRIENDS_RELATIONSHIP_UPDATE"
+            - "upc_shareplay_stop_session"
+            - "FRIENDS_RELATIONSHIP_UPDATE"
+            - "upc_shareplay_stop_session"
+            - "BLOCKLIST_ADDED"
+            - "BLOCKLIST_REMOVE"
+            - "BLOCKLIST_REMOVED"
+            - "upc_channel_metadata_updated"
+            - "FRIENDS_INFO_UPDATED"
+            - "FRIENDS_RELATIONSHIP_TRIGGER"
+            - "upc_channel_created"
+            - "upc_channel_membership_deleted"
+            - "upc_channel_message_created"
+            - "upc_channel_memberships_created"
+            - "PLAYTRIAL_BUDGET_CONSUMPTION"
+          items:
+            type: string
+        obj:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "b79f181e-2c6d-4e1e-ad35-46488000a645"
+        spaceIds:
+          type: array
+          example:
+            - "e17be87d-2996-4f3b-97c4-19bb2dae2933"
+            - "45d58365-547f-4b45-ab5b-53ed14cc79ed"
+            - "c0539e9c-90ab-4af8-a2d6-ef7b3883f430"
+          items:
+              type: string
+        spaceIndependentMessageTypes:
+          type: array
+          example: []
+          items:
+            type: string
+        stagingSpaceId:
+          type: string
+          example: "00000000-0000-0000-0000-000000000000"
+        ubiLocaleCode:
+          type: string
+          example: ""
+    ResourceMetric:
+      type: object
+      properties:
+        resource:
+          type: object
+          properties:
+            attributes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Attribute'
+            droppedAttributesCount:
+              type: integer
+              example: 0
+        scopeMetrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScopeMetric'
+    ScopeMetric:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+        scope:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "micro-app-performance"
+            version:
+              type: string
+              example: ""
+    Metric:
+      type: object
+      properties:
+        description:
+          type: string
+          example: "Tracks bundle load time for a microapp"
+        histogram:
+          type: object
+          properties:
+            aggregationTemporality:
+              type: integer
+              example: 1
+            dataPoints:
+              type: array
+              items:
+                $ref: '#/components/schemas/DataPoint'
+        name:
+          type: string
+          example: "v1_performance_bundle_load_time"
+        unit:
+          type: string
+          example: ""
+    DataPoint:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        bucketCounts:
+          type: array
+          example: [0,1,0,0,0,0,0,0,0,0,0,0]
+          items:
+            type: integer
+        count:
+          type: integer
+          example: 1
+        explicitBounds:
+          type: array
+          example: [0,250,500,750,1000,1500,2000,2500,3000,4000,5000]
+          items:
+            type: integer
+        max:
+          type: number
+          example: 1.8000001907348633
+        min:
+          type: number
+          example: 1.8000001907348633
+        startTimeUnixNano:
+          type: string
+          example: "1770152755909000000"
+        sum:
+          type: number
+          example: 1.8000001907348633
+        timeUnixNano:
+          type: string
+          example: "1770152813396000000"
+    Attribute:
+      type: object
+      properties:
+        key:
+          type: string
+          example: "service.name"
+        value:
+          type: object
+          properties:
+            stringValue:
+              type: string
+              example: "app-shell"
