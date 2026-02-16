@@ -1,14 +1,186 @@
 ## Raw request
 
 ```json
+[
+   {
+      "operationName":"GetUserProfiles",
+      "variables":{
+         "shouldGetRichPresence":true,
+         "userIds":[
+            "3880b63b-2815-4452-adc9-0fe155b785a5",
+            "ae3ebf05-7bb6-4880-ab3e-3eefc67e3342"
+         ]
+      },
+      "extensions":{
+         "persistedQuery":{
+            "version":1,
+            "sha256Hash":"8a1a91d04a6715d7092e5498bace7b1b84a4a1a819f489616d840d9eab8b6c10"
+         }
+      }
+   }
+]
 ```
 
 ## GQL query
 
-```gql
-```
+Persisted query.
 
 ## Response
 
 ```json
+[
+   {
+      "data":{
+         "users":[
+            {
+               "id":"3880b63b-2815-4452-adc9-0fe155b785a5",
+               "profileId":"3880b63b-2815-4452-adc9-0fe155b785a5",
+               "name":"CoderForLife",
+               "__typename":"User",
+               "currentOnlineGame":null,
+               "networks":{
+                  "edges":[
+                     {
+                        "meta":{
+                           "id":"3880b63b-2815-4452-adc9-0fe153b785a5",
+                           "name":"CoderForLife",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"UPLAY",
+                           "publicCodeName":"UPLAY",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"2cc24b15-a8b4-4298-b46a-8b143402d071",
+                           "name":"CoderforLife666",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"XBL",
+                           "publicCodeName":"XBL",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"bc48720c-414c-4582-ad20-5e7e69cd7f91",
+                           "name":"CoderForLife666",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"PSN",
+                           "publicCodeName":"PSN",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"0f1a4bca-c224-4e81-83c3-e2c55cb94792",
+                           "name":"LifeCoder",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"SWITCH",
+                           "publicCodeName":"NINTENDO",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"e42134d8-b755-4aeb-8a33-822a3f21b0c2",
+                           "name":"coder_for_life",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"TWITCH",
+                           "publicCodeName":"TWITCH",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     }
+                  ],
+                  "__typename":"UserNetworksConnection"
+               },
+               "richPresences":[
+                  
+               ]
+            },
+            {
+               "id":"ae3ebf05-7bb6-4880-ab3e-3eefc67e3342",
+               "profileId":"ae3ebf05-7bb6-4880-ab3e-3eefc67e3342",
+               "name":"Premahog",
+               "__typename":"User",
+               "currentOnlineGame":null,
+               "networks":{
+                  "edges":[
+                     {
+                        "meta":{
+                           "id":"ae3ebf05-7bb6-4880-ab3e-3eefc67e3342",
+                           "name":"Premahog",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"UPLAY",
+                           "publicCodeName":"UPLAY",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"9d2ffe42-b66c-449e-ba03-0e3e715ad8ee",
+                           "name":"FiveTomato55324",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"XBL",
+                           "publicCodeName":"XBL",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"e5530ec4-1964-4f3d-881f-1d181a4758b7",
+                           "name":"76561198037793436",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"STEAM",
+                           "publicCodeName":"STEAM",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     },
+                     {
+                        "meta":{
+                           "id":"cfd3b1c0-70e9-4a0a-bbd6-89999dc45a2a",
+                           "name":"charlesclark9025",
+                           "__typename":"UserNetworkMeta"
+                        },
+                        "node":{
+                           "id":"TWITCH",
+                           "publicCodeName":"TWITCH",
+                           "__typename":"Network"
+                        },
+                        "__typename":"UserNetworkEdge"
+                     }
+                  ],
+                  "__typename":"UserNetworksConnection"
+               },
+               "richPresences":[
+                  
+               ]
+            }
+         ]
+      }
+   }
+]
 ```
