@@ -12,8 +12,17 @@
 
 | Type | Name |
 |------|------|
-| NotificationEvent | oNotificationEvent |
+| [NotificationEvent](#notificationevent-structure) | oNotificationEvent |
 
 ### Response
 
 This method does not return anything.
+
+# Types
+
+## NotificationEvent ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
+
+| Type | Name |
+|------|------|
+| profileid | m_pidSource |
+| string | m_strRawParams |
