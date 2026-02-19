@@ -13,24 +13,24 @@ tags:
   - name: "Connections"
 
 paths:
-  /v2/connections/{connection_id}/{unknown_id1}/{unknown_id2}/notifications:
+  /v2/connections/{instance}/{port}/{connection_id}/notifications:
     patch:
       tags:
         - "Connections"
       parameters:
-        - name: "connection_id"
+        - name: "instance"
           in: path
           required: true
           example: "0eb3a9d58cdb29c38"
           schema:
             type: string
-        - name: "unknown_id1"
+        - name: "port"
           in: path
           required: true
           example: 8182
           schema:
             type: integer
-        - name: "unknown_id2"
+        - name: "connection_id"
           in: path
           required: true
           example: "89f7f5c4-87ea-4ec5-9e58-656132fa9859"
