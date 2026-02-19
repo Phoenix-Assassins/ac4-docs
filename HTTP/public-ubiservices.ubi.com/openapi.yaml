@@ -3,6 +3,8 @@ info:
   title: Public Ubi Services API
   description: |-
     Live service API for `public-ubiservices.ubi.com`.
+
+    For Uplay GraphQL requests, refer to markdown documentation.
     
   version: 1.0.0
 
@@ -85,6 +87,64 @@ paths:
       responses:
         '304':
           description: Not Modified
+  /v1/profiles/me/uplay/graphql:
+    post:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-profileid"
+          in: header
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-localecode"
+          in: header
+          required: true
+          example: "en-US"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "ubi-countryid"
+          in: header
+          example: "PL"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
   /v1/profiles/{profile_id}/avatars:
     get:
       tags:
