@@ -14,6 +14,7 @@ servers:
 tags:
   - name: "Profiles"
   - name: "Spaces"
+  - name: "Users"
 paths:
   /v1/profiles/me/populations:
     get:
@@ -87,6 +88,97 @@ paths:
       responses:
         '304':
           description: Not Modified
+  /v1/profiles/me/remotelog:
+    post:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RemoteLog'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  buildVersion:
+                    type: string
+                    example: "1.11.2"
+                  colour:
+                    type: string
+                    example: "green"
+                  config_version:
+                    type: string
+                    example: "1.13.45"
+                  databaseConnection:
+                    type: boolean
+                    example: true
+                  databaseReadWrite:
+                    type: boolean
+                    example: true
+                  dependenciesCheckSuccess:
+                    type: boolean
+                    example: true
+                  environment:
+                    type: string
+                    example: "prod"
+                  hostIP:
+                    type: string
+                    example: "172.17.0.17"
+                  hostName:
+                    type: string
+                    example: "8aeb783aeefa"
+                  release_version:
+                    type: string
+                    example: "1.11.2+RELEASE.23"
+                  serviceName:
+                    type: string
+                    example: "remotelogs"
+                  status:
+                    type: string
+                    example: "OK"
+                  statusMessage:
+                    type: string
+                    example: "Success"
+                  strongDependenciesCheckSuccess:
+                    type: boolean
+                    example: true
+                  timeMilliseconds:
+                    type: number
+                    example: 0
+                  transactionId:
+                    type: string
+                    example: "dfbf3345-741d-4da7-847e-fd3b8cee0835"
+                  weakDependenciesCheckSuccess:
+                    type: boolean
+                    example: true
   /v1/profiles/me/uplay/graphql:
     post:
       tags:
@@ -334,6 +426,89 @@ paths:
                     example: []
                     items:
                       type: object
+  /v1/profiles/{profile_id}/richpresences/subscriptions:
+    post:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-profileid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-localecode"
+          in: header
+          example: "en-US"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupId:
+                  type: string
+                  example: "c0c51ca0-cf15-4eba-b28c-23d7e95304d8"
+                listenedSpaceIdsFilter:
+                  nullable: true
+                  example: null
+                spaceId:
+                  type: string
+                  example: "45d58365-547f-4b45-ab5b-53ed14cc79ed"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: "2026-02-03T21:17:21.398Z"
+                  groupId:
+                    type: string
+                    example: "c0c51ca0-cf15-4eba-b28c-23d7e95304d8"
+                  groupSpaceId:
+                    type: string
+                    example: "45d58365-547f-4b45-ab5b-53ed14cc79ed"
+                  profileId:
+                    type: string
+                    example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+                  spaceId:
+                    type: string
+                    example: "45d58365-547f-4b45-ab5b-53ed14cc79ed"
+                  subscriptionId:
+                    type: string
+                    example: "69f0813e-367d-4e75-bf33-cc1c7ec17aee"
   /v2/profiles/me/iplocation:
     get:
       tags:
@@ -351,6 +526,98 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IpLocation'
+  /v3/profiles/me/2fa:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    example: false
+                  codeGenerationPreference:
+                    type: array
+                    items:
+                      type: object
+                    example: []
+  /v3/profiles/me/events:
+    post:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                applicationId:
+                  type: string
+                  example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+                events:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ProfileEvent'
+                profileId:
+                  type: string
+                  example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+                spaceId:
+                  type: string
+                  example: "ec66c7e2-7b44-471c-a3ab-9d1da48153c3"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
   /v3/profiles/sessions:
     post:
       tags:
@@ -377,6 +644,52 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/SessionInfo'
+  /v3/profiles/{profile_id}/global/harboursocial/friends/core/enriched:
+    get:
+      tags:
+        - "Profiles"
+      parameters:
+        - name: "profile_id"
+          in: path
+          required: true
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  friends:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnrichedFriend'
+                  groupId:
+                    type: string
+                    example: "c0c51ca0-cf15-4eba-b28c-23d7e95304d8"
   /v1/spaces/{space_id}/parameters:
     get:
       tags:
@@ -608,6 +921,138 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PostAuth'
+  /v2/users/me/communicationPreferences:
+    get:
+      tags:
+        - "Users"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  2faCode:
+                    type: string
+                    example: "email"
+  /v3/users/me:
+    get:
+      tags:
+        - "Users"
+      parameters:
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-requestedplatformtype"
+          in: header
+          example: "uplay"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+  /v3/users/{user_id}/profiles:
+    get:
+      tags:
+        - "Users"
+      parameters:
+        - name: "user_id"
+          in: path
+          required: true
+          example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+          schema:
+            type: string
+        - name: "ubi-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "x-platform-appid"
+          in: header
+          example: "d1c666c8-51bb-42c8-8b76-1e224f451176"
+          schema:
+            type: string
+        - name: "ubi-requestedplatformtype"
+          in: header
+          example: "uplay"
+          schema:
+            type: string
+        - name: "ubi-sessionid"
+          in: header
+          example: "b5d11edb-1786-40bd-a369-1ce7f13c6556"
+          schema:
+            type: string
+        - name: "authorization"
+          in: header
+          example: "ubi_v1 t=ewogICJ2ZXIiOiAiMSIsCiAgImFpZCI6ICJ..."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idOnPlatform:
+                          type: string
+                          example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+                        nameOnPlatform:
+                          type: string
+                          example: "mimak"
+                        platformType:
+                          type: string
+                          example: "uplay"
+                        profileId:
+                          type: string
+                          example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+                        userId:
+                          type: string
+                          example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
 components:
   schemas:
     SessionInfo:
@@ -1355,3 +1800,280 @@ components:
             stringValue:
               type: string
               example: "app-shell"
+    Me:
+      type: object
+      properties:
+        accountIssues:
+          type: array
+          items:
+            type: object
+          nullable: true
+          example: null
+        accountType:
+          type: string
+          example: "Ubisoft"
+        ageGroup:
+          type: string
+          example: "adult"
+        communicationOptIn:
+          type: boolean
+          example: false
+        communicationThirdPartyOptIn:
+          type: boolean
+          example: false
+        country:
+          type: string
+          example: "PL"
+        dateAnonymized:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        dateCreated:
+          type: string
+          format: date-time
+          example: "2017-01-18T19:46:24.2960000Z"
+        dateOfBirth:
+          type: string
+          format: date-time
+          example: "2000-09-27T00:00:00.0000000Z"
+        email:
+          type: string
+          format: email
+          example: "deez@nuts.plap"
+        firstName:
+          type: string
+          nullable: true
+          example: null
+        gender:
+          type: string
+          nullable: true
+          example: null
+        hasAcceptedLegalOptins:
+          type: boolean
+          example: true
+        lastName:
+          type: string
+          nullable: true
+          example: null
+        nameOnPlatform:
+          type: string
+          example: "mimak"
+        phone:
+          type: string
+          nullable: true
+          example: null
+        preferredLanguage:
+          type: string
+          example: "en"
+        region:
+          type: string
+          nullable: true
+          example: null
+        status:
+          $ref: '#/components/schemas/MeStatus'
+        userId:
+          type: string
+          example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+        username:
+          type: string
+          example: "mimak"
+    MeStatus:
+      type: object
+      properties:
+        ageVerification:
+          type: string
+          example: "notVerified"
+        autoGeneratedUsername:
+          type: boolean
+          example: false
+        changeEmailPending:
+          type: boolean
+          example: false
+        dateOfBirthApproximated:
+          type: boolean
+          example: false
+        emailChangeInCooldown:
+          type: number
+          nullable: true
+          example: null
+        generalStatus:
+          type: string
+          example: "activated"
+        inactiveAccount:
+          type: boolean
+          example: false
+        invalidEmail:
+          type: boolean
+          example: false
+        invalidPhone:
+          type: boolean
+          example: false
+        locked:
+          type: boolean
+          example: false
+        minor:
+          type: boolean
+          example: false
+        missingRequiredInformation:
+          type: boolean
+          example: false
+        passwordUpdateRequired:
+          type: boolean
+          example: false
+        pendingDeactivation:
+          type: boolean
+          example: false
+        phoneActivated:
+          type: boolean
+          example: false
+        phoneSanctioned:
+          type: boolean
+          example: false
+        recoveringPassword:
+          type: boolean
+          example: false
+        reserved:
+          type: boolean
+          example: false
+        stolenAccount:
+          type: boolean
+          example: false
+        suspiciousActivity:
+          type: boolean
+          example: false
+        targetDeactivationDate:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        testAccount:
+          type: boolean
+          example: false
+    ProfileEvent:
+      type: object
+      properties:
+        contexts:
+          type: array
+          items:
+            type: object
+          example: []
+        createdDate:
+          type: string
+          format: date-time
+          example: "2026-02-03T21:16:50.933Z"
+        obj:
+          type: object
+          properties:
+            country:
+              type: string
+              example: "PL"
+            deviceType:
+              type: string
+              example: "desktop"
+            gameSessionId:
+              type: string
+              example: "be330359-011d-4a4e-8474-e3dccce5a1c2"
+            gameSpaceId:
+              type: string
+              example: "c8b3f1c6-a246-4ffe-a837-a49d6bb0ce52"
+            launchMicroApp:
+              type: string
+              example: ""
+            launchParams:
+              type: object
+            machineId:
+              type: string
+              example: ""
+            partner:
+              type: string
+              example: "steam"
+            platformType:
+              type: string
+              example: "steam"
+            platformVariant:
+              type: string
+              example: ""
+            seqId:
+              type: integer
+              example: 0
+            shellSessionId:
+              type: string
+              example: "b5a11edb-1787-40fd-a369-1ce7f13c65c6"
+        seqId:
+          type: integer
+          example: 0
+        type:
+          type: string
+          example: "service.shellStart"
+    EnrichedFriend:
+      type: object
+      properties:
+        isFavourite:
+          type: boolean
+          example: false
+        lastModified:
+          type: string
+          format: date-time
+          example: "2022-01-22T13:51:05.474Z"
+        nickname:
+          type: string
+          example: ""
+        onlineStatus:
+          type: string
+          example: "online"
+        pid:
+          type: string
+          example: "9370b63b-2d13-4352-adb9-0fe152a485ac"
+        state:
+          type: string
+          example: "Friends"
+    RemoteLog:
+      type: object
+      properties:
+        body:
+          type: string
+          example: '"msg":"Redeem failed with error info","moreInfo":{"type":1,"isActivated":false,"key":"","name":"","errorMessage":"This CD Key or Activation Code is not valid. Please try again.","packageId":0,"platformType":"steam","isStandalone":false},"context":{"hostPlatformType":"steam-overlay"}}'
+        headers:
+          type: object
+          properties:
+            applicationBuildId:
+              type: string
+              example: "2.8.0"
+            applicationId:
+              type: string
+              example: "035ebe81-61ab-4bae-bade-5ffda0aa3754"
+            environment:
+              type: string
+              example: "prod"
+            hostPlatformType:
+              type: string
+              example: "steam-overlay"
+            logCategory:
+              type: string
+              example: "uncategorized"
+            logId:
+              type: integer
+              example: 1770153534188000
+            logLevel:
+              type: string
+              example: "Info"
+            logSource:
+              type: string
+              example: "app-key-redemption"
+            profileId:
+              type: string
+              example: "1feb5434-f1f1-43ff-9a68-590c969789ae"
+            sessionCountry:
+              type: string
+              example: "PL"
+            sessionId:
+              type: string
+              example: "95d11edb-1a86-47bd-a369-1ce7f13c6356"
+            spaceId:
+              type: string
+              example: "e7a36cfb-631e-4186-83a2-e319edf95da0"
+            us_timestamp:
+              type: string
+              format: date-time
+              example: "2026-02-03T21:18:54.188Z"
