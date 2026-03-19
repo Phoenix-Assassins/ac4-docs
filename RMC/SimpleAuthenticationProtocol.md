@@ -128,7 +128,7 @@
 
 | Type | Name |
 |------|------|
-| std_list<stationurl> | vecMyURLs |
+| std_list\<stationurl> | vecMyURLs |
 
 ### Response
 
@@ -144,7 +144,7 @@
 | Type | Name |
 |------|------|
 | stationurl | m_urlRegularProtocols |
-| std_list<byte> | m_lstSpecialProtocols |
+| std_list\<byte> | m_lstSpecialProtocols |
 | stationurl | m_urlSpecialProtocols |
 | uint32 | nid |
 
