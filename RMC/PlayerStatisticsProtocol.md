@@ -17,8 +17,8 @@
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint1 |
-| uint32 | unkUint2 |
+| uint32 | startingRank |
+| uint32 | count |
 | bool | unkBool |
 | [LeaderboardQuery](#leaderboardquery-structure) | query |
 
@@ -53,14 +53,14 @@ This method does not return anything.
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint1 |
-| uint32 | unkUint2 |
+| uint32 | boardID |
+| uint32 | resetFrequency |
 
 ### Response
 
 | Type | Name |
 |------|------|
-| uint32 | nextPurgeDate |
+| uint32 | purgeDate |
 
 # (4) GetMilestones
 
@@ -108,13 +108,13 @@ This method does not take any parameters.
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint1 |
-| uint32 | unkUint2 |
-| uint32 | unkUint3 |
-| qlist\<uint32> | unkUints |
-| qlist<[UnkType](#unktype-structure)> | unkObjs |
+| uint32 | m_boardID |
+| uint32 | m_contextID |
+| uint32 | m_resetFrequency |
+| qlist\<uint32> | m_statIDs |
+| qlist<[profileid](#profileid-structure)> | m_estimatedPIDs |
 
-## UnkType ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
+## profileid ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
 
 | Type | Name |
 |------|------|
@@ -130,37 +130,37 @@ This method does not take any parameters.
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint1 |
-| uint32 | unkUint2 |
-| uint32 | unkUint3 |
-| uint32 | unkUint4 |
-| qlist<[PlayerStatSet](#playerstatset-structure)> | statSets |
+| uint32 | m_boardID |
+| uint32 | m_contextID |
+| uint32 | m_resetFrequency |
+| uint32 | m_leaderboardTotalPlayerCount |
+| qlist<[PlayerStatSet](#playerstatset-structure)> | m_playerRanks |
 
 ## PlayerStatSet ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
 
 | Type | Name |
 |------|------|
-| [UnkType](#unktype-structure) | unkObj |
-| datetime | time |
-| qlist<[PropertyVariant](#propertyvariant-structure)> | ranks |
-| uint32 | unkUint1 |
-| uint32 | unkUint2 |
-| variant | variant |
+| [profileid](#profileid-structure) | m_playerPID |
+| datetime | m_submittedTime |
+| qlist<[PropertyVariant](#propertyvariant-structure)> | m_stats |
+| uint32 | m_rankStatus |
+| uint32 | m_rank |
+| variant | m_score |
 
 ## PropertyVariant ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint |
-| variant | variant |
+| uint32 | m_ID |
+| variant | m_value |
 
 ## PlayerStatUpdate ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
 
 | Type | Name |
 |------|------|
-| uint32 | unkUint |
-| qlist\<uint32> | unkUints |
-| qlist<[PropertyVariant](#propertyvariant-structure)> | stats |
+| uint32 | m_boardID |
+| qlist\<uint32> | m_contextIDs |
+| qlist<[PropertyVariant](#propertyvariant-structure)> | m_stats |
 
 ## LeaderboardMilestone ([Structure](https://github.com/kinnay/NintendoClients/wiki/NEX-Common-Types#structure))
 
